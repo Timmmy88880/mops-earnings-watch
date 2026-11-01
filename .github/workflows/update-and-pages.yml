@@ -1,0 +1,87 @@
+name: Update data and deploy Pages
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+    inputs:
+      refresh:
+        description: Refresh official MOPS data
+        type: boolean
+        default: true
+  schedule:
+    # Monday 07:15 Asia/Taipei
+    - cron: '15 23 * * 0'
+
+concurrency:
+  group: mops-earnings-watch-pages
+  cancel-in-progress: false
+
+permissions:
+  contents: read
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    permissions:
+      contents: write
+      pages: write
+      id-token: write
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Check out source
+        uses: actions/checkout@v4
+        with:
+          # Needed so the job can push data commits
+          persist-credentials: true
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+
+      - name: Test updater
+        run: python -m unittest discover -s tests -v
+
+      - name: Test filtering and download
+        run: node --test tests/core.test.mjs
+
+      - name: Refresh official announcements
+        if: github.event_name == 'schedule' || (github.event_name == 'workflow_dispatch' && inputs.refresh)
+        run: python scripts/update_data.py
+
+      - name: Validate dataset
+        run: python scripts/update_data.py --validate-only
+
+      - name: Commit successful refresh
+        if: github.event_name == 'schedule' || (github.event_name == 'workflow_dispatch' && inputs.refresh)
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          if ! git diff --quiet -- web/data/2026-q3.json; then
+            git add web/data/2026-q3.json
+            git commit -m 'data: refresh 2026 Q3 official disclosures'
+            git push origin HEAD:main
+          else
+            echo 'No data changes to commit'
+          fi
+
+      - name: Setup Pages
+        uses: actions/configure-pages@v5
+
+      - name: Upload site artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: web
+
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
