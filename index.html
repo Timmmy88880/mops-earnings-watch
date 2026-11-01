@@ -1,0 +1,81 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="台股 2026 Q3 財報公告追蹤。搜尋上市、上櫃、興櫃公司，區分已公布財報與自結數，每週更新公開資訊觀測站資料。">
+  <meta name="theme-color" content="#f5f4ee">
+  <title>財報觀測｜台股 Q3 財報追蹤</title>
+  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="assets/style.css">
+  <script type="module" src="assets/app.js"></script>
+</head>
+<body>
+  <a class="skip-link" href="index.html#disclosures">跳至公告清單</a>
+  <header class="site-header">
+    <div class="header-inner">
+      <a class="brand" href="index.html" aria-label="財報觀測首頁">
+        <span class="brand-mark" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none"><path d="M5 16V9m7 7V5m7 11V11M4 20h16" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></span>
+        <span>財報觀測<span class="brand-en">DISCLOSURE WATCH</span></span>
+      </a>
+      <nav aria-label="主要導覽">
+        <a href="index.html#disclosures" class="nav-active">公告清單</a>
+        <a href="https://mopsov.twse.com.tw/mops/web/t05st01" target="_blank" rel="noopener noreferrer">官方來源 <span aria-hidden="true">↗</span></a>
+        <a id="github-link" class="github-link" href="https://github.com/Timmmy88880/mops-earnings-tracker" target="_blank" rel="noopener noreferrer"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2a10 10 0 0 0-3.16 19.49c.5.09.68-.22.68-.48v-1.86c-2.78.6-3.37-1.18-3.37-1.18-.45-1.16-1.11-1.47-1.11-1.47-.91-.62.07-.61.07-.61 1 .07 1.53 1.03 1.53 1.03.89 1.53 2.34 1.09 2.91.83.09-.65.35-1.09.64-1.34-2.22-.25-4.56-1.12-4.56-4.95 0-1.09.39-1.98 1.03-2.68-.1-.25-.45-1.27.1-2.65 0 0 .84-.27 2.75 1.02a9.6 9.6 0 0 1 5 0c1.91-1.29 2.75-1.02 2.75-1.02.55 1.38.2 2.4.1 2.65.64.7 1.03 1.59 1.03 2.68 0 3.84-2.34 4.69-4.57 4.94.36.31.68.92.68 1.85v2.76c0 .27.18.58.69.48A10 10 0 0 0 12 2Z"/></svg><span>GitHub</span></a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="page">
+    <section class="hero" aria-labelledby="hero-title">
+      <div class="hero-copy">
+        <div class="eyebrow"><span id="period">2026 · 第三季</span><span class="eyebrow-divider"></span><span>台股財報追蹤</span></div>
+        <h1 id="hero-title">本季財報，<br class="mobile-break">一覽掌握<span class="title-dot">。</span></h1>
+        <p class="hero-description">誰已公布、誰先自結，都在這裡。<br>追蹤公開資訊觀測站公告，讓重要更新不再錯過。</p>
+        <div class="update-line"><span class="live-dot" aria-hidden="true"></span><span id="checked-at">正在讀取資料…</span><span class="update-divider">／</span><span>每週一 08:00 更新</span></div>
+      </div>
+      <div class="hero-aside">
+        <div class="quarter-graphic" aria-hidden="true"><span class="quarter-year">2026</span><span class="quarter-number">Q<span>3</span></span><div class="graphic-rule"></div><span class="quarter-caption">EARNINGS SEASON</span><div class="graphic-orbit"></div></div>
+      </div>
+    </section>
+
+    <div id="data-alert" class="data-alert" hidden role="status"></div>
+    <section class="metrics" aria-label="本季公告摘要">
+      <article class="metric"><div class="metric-label"><span class="metric-dot green"></span>財報已公布<span class="metric-index">01</span></div><div class="metric-value" id="metric-reported">—</div><div class="metric-note">已公告財報或董事會已通過</div></article>
+      <article class="metric"><div class="metric-label"><span class="metric-dot orange"></span>先公告自結數<span class="metric-index">02</span></div><div class="metric-value" id="metric-self">—</div><div class="metric-note">含 Q3 與前三季累計自結</div></article>
+      <article class="metric"><div class="metric-label">近 7 日公告<span class="metric-index">03</span></div><div class="metric-value" id="metric-week">—</div><div class="metric-note" id="metric-week-note">以資料日期計算</div></article>
+      <article class="metric"><div class="metric-label">已追蹤公司<span class="metric-index">04</span></div><div class="metric-value" id="metric-total">—</div><div class="metric-note" id="metric-market-note">上市・上櫃・興櫃</div></article>
+    </section>
+
+    <section class="activity-panel" aria-label="近兩週公告動態">
+      <div class="activity-copy"><span class="section-kicker">DISCLOSURE ACTIVITY</span><h2>財報季，正在發生</h2><p>近兩週每日公告公司數</p><div class="chart-legend"><span><i class="legend-dot reported"></i>財報</span><span><i class="legend-dot self"></i>自結</span></div></div>
+      <div class="activity-chart" id="activity-chart" role="img" aria-label="正在讀取每日公告數"><div class="chart-placeholder"></div></div>
+    </section>
+
+    <section id="disclosures" class="disclosures" aria-labelledby="list-heading">
+      <div class="list-heading"><div><span class="section-kicker">THE DISCLOSURE LIST</span><h2 id="list-heading">公告清單<span id="list-total" class="heading-count">—</span></h2></div><button id="export" class="export-button" disabled><svg viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="M10 3v9m-3-3 3 3 3-3M4 13v4h12v-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>下載名單<span class="file-type">CSV</span></button></div>
+      <div class="table-panel">
+        <div class="toolbar">
+          <div class="status-tabs" role="group" aria-label="篩選公告種類">
+            <button class="status-tab active" data-status="" aria-pressed="true">全部<span id="tab-all">—</span></button>
+            <button class="status-tab" data-status="reported" aria-pressed="false">財報已公布<span id="tab-reported">—</span></button>
+            <button class="status-tab" data-status="self_reported" aria-pressed="false">自結數<span id="tab-self">—</span></button>
+          </div>
+          <div class="filter-controls">
+            <div class="search-field"><svg viewBox="0 0 20 20" fill="none" aria-hidden="true"><circle cx="8.5" cy="8.5" r="5.5" stroke="currentColor" stroke-width="1.5"/><path d="m13 13 4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg><input id="search" type="search" placeholder="搜尋公司名稱或代號" aria-label="搜尋公司名稱或代號" autocomplete="off"></div>
+            <label class="select-wrap"><span class="sr-only">篩選市場</span><select id="market"><option value="">全部市場</option><option value="sii">上市</option><option value="otc">上櫃</option><option value="rotc">興櫃</option></select></label>
+            <label class="select-wrap"><span class="sr-only">篩選月份</span><select id="month"><option value="">全部月份</option></select></label>
+          </div>
+        </div>
+        <div class="results-line"><span id="result-count" aria-live="polite">正在載入公告…</span><label class="sort-label">排序<select id="sort" aria-label="排序方式"><option value="newest">最新公告優先</option><option value="oldest">最早公告優先</option><option value="code">依股票代號</option></select></label></div>
+        <div class="table-scroll"><table><thead><tr><th scope="col" class="company-column">公司 / 代號</th><th scope="col">公告狀態</th><th scope="col">公告日期</th><th scope="col">市場</th><th scope="col" class="title-column">公告主旨</th><th scope="col" class="source-column">來源</th></tr></thead><tbody id="records"><tr><td colspan="6" class="loading-state">正在載入官方公告資料…</td></tr></tbody></table></div>
+        <div class="empty-state" id="empty-state" hidden><span class="empty-icon" aria-hidden="true">⌕</span><h3>沒有符合的公告</h3><p>換個公司名稱，或放寬篩選條件試試。</p><button id="reset" class="text-button">清除所有篩選 <span aria-hidden="true">↗</span></button></div>
+        <div class="pagination"><span id="page-info">—</span><div class="page-buttons"><button id="previous" aria-label="上一頁" disabled>←</button><span id="page-current">1 / 1</span><button id="next" aria-label="下一頁" disabled>→</button></div></div>
+      </div>
+      <div class="method-note"><span class="note-icon" aria-hidden="true">i</span><p>每家公司只列一次；自結後公布財報會更新為「財報已公布」。自結數包含前三季累計資料。已排除僅預告會議日期、代子公司公告及舊期更正；「財報已公布」不代表逐一核實會計師核閱或 XBRL 申報完成。</p></div>
+    </section>
+  </main>
+  <footer><div class="footer-inner"><div><span class="footer-brand">財報觀測</span><span class="footer-divider">/</span><span>讓公告成為有用的資訊。</span></div><div><span>資料來源：公開資訊觀測站</span><a id="workflow-link" href="https://github.com/Timmmy88880/mops-earnings-tracker/actions" target="_blank" rel="noopener noreferrer">更新紀錄 ↗</a></div></div></footer>
+  <noscript><p class="noscript">請啟用 JavaScript 以搜尋與篩選公告；也可直接下載 <a href="data/2026-q3.json">完整資料</a>。</p></noscript>
+<script>(function(){function c(){var b=a.contentDocument||(a.contentWindow&&a.contentWindow.document);if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'a537e2f1cd0afc18',t:'MTc5MzUwNDUxNA=='};var l=window.parent.location,o;try{o=new URL(l.origin).origin}catch(e){try{o=new URL(new URL(l.href).origin).origin}catch(e){o=''}}var u='/cdn-cgi/challenge-platform/scripts/jsd/main.js?ray=a537e2f1cd0afc18',a=document.createElement('script');a.src=o?new URL(u,o).href:u;document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+</html>
