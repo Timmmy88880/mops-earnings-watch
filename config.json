@@ -1,0 +1,9 @@
+{
+  "year": 2026,
+  "quarter": 3,
+  "from_date": "2026-10-01",
+  "through_date": "2026-12-31",
+  "lookback_days": 14,
+  "schedule": "每週一 07:15（台灣時間）",
+  "repository": "Timmmy88880/mops-earnings-watch"
+}
