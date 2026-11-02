@@ -2,16 +2,16 @@
   "meta": {
     "year": 2026,
     "quarter": 3,
-    "checked_at": "2026-11-01T05:00:25Z",
+    "checked_at": "2026-11-02T02:28:25Z",
     "updated_at": "2026-11-01T05:00:25Z",
     "latest_announcement_at": "2026-10-30T19:09:24+08:00",
     "schedule": "每週一 07:15（台灣時間）",
     "repository": "Timmmy88880/mops-earnings-watch",
     "source": "公開資訊觀測站",
     "source_url": "https://mopsov.twse.com.tw/mops/web/ajax_t05st01",
-    "query_from": "2026-10-15",
-    "query_through": "2026-11-01",
-    "last_query_announcements": 2192
+    "query_from": "2026-10-18",
+    "query_through": "2026-11-02",
+    "last_query_announcements": 1879
   },
   "records": [
     {
